@@ -23,4 +23,6 @@ class OnlineJobsPhJobListing extends Model
         'posting_link',
         'id',
     ];
+
+    protected $casts = ['posting_date' => 'datetime'];
 }
