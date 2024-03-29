@@ -53,6 +53,8 @@ services:
         ports:
             - 4444:4444
             - 7900:7900
+        environment:
+            SE_NODE_SESSION_TIMEOUT: 60
         shm_size: "2gb"
         networks:
             - sail

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('title');
             $table->string('employer');
             $table->string('location');
+            $table->text('posting_link');
             $table->timestamps();
         });
 

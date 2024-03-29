@@ -61,6 +61,7 @@ class IndeedService
             }
 
             $id = $jobCrawler->filter('a.jcs-JobTitle')->attr('data-jk');
+            $postingLink = $jobCrawler->filter('a.jcs-JobTitle')->attr('href');
             $title = $jobCrawler->filter('h2.jobTitle a span')->text();
             $companyInfoCrawler = $jobCrawler->filter('div.company_location div')->first();
             $companyName = $companyInfoCrawler->filter('span')->text();
@@ -70,6 +71,7 @@ class IndeedService
                 'title' => $title,
                 'employer' => $companyName,
                 'location' => $companyLocation,
+                'posting_link' => $postingLink,
             ]);
             $jobCrawler->filter('div.jobMetaDataGroup div.metadataContainer div')->each(function (Crawler $metaCrawler) use ($job) {
                 IndeedJobListingTags::updateOrCreate(['indeed_job_listing_id' => $job->id, 'tag' => $metaCrawler->text()]);

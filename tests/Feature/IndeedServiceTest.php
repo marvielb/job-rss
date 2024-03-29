@@ -12,7 +12,6 @@ class IndeedServiceTest extends TestCase
 
     public function test_scrapes_data(): void
     {
-
         $html = file_get_contents(__DIR__.'/SampleData/test_indeed.html');
         $service = new IndeedService();
         $service->parseContentsAndSave($html);

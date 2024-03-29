@@ -14,7 +14,7 @@ class IndeedJobListing extends Model
 
     protected $table = 'indeed_job_listings';
 
-    protected $fillable = ['id', 'title', 'employer', 'location'];
+    protected $fillable = ['id', 'title', 'employer', 'location', 'posting_link'];
 
     protected $casts = ['id' => 'string'];
 }
