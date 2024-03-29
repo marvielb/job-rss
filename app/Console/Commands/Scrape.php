@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\IndeedService;
 use App\Services\OnlineJobsPhService;
 use Illuminate\Console\Command;
 
@@ -24,8 +25,10 @@ class Scrape extends Command
     /**
      * Execute the console command.
      */
-    public function handle(OnlineJobsPhService $service): void
+    public function handle(OnlineJobsPhService $onlineJobsPhService, IndeedService $indeedService): void
     {
-        $service->scrapeContents('laravel');
+        $onlineJobsPhService->scrapeContents('laravel');
+        $indeedHtml = $indeedService->scrapeContents('laravel');
+        $indeedService->parseContentsAndSave($indeedHtml);
     }
 }

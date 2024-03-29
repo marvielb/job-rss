@@ -14,7 +14,7 @@ class SearchOnlineJobsTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
+    public function test_can_parse_example_data(): void
     {
         $html = file_get_contents(__DIR__.'/SampleData/test.html');
         Http::fake([
