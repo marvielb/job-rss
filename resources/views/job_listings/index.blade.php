@@ -10,19 +10,40 @@
 </head>
 
 <body class="flex w-full justify-center">
-    <div class="max-w-screen-md ">
+    <div class="max-w-screen-md p-5">
         @foreach ($jobs as $job)
-            <a href="https://www.onlinejobs.ph{{ $job->posting_link }}" target=”_blank”
-                class="card  bg-neutral text-neutral-content mt-5 cursor-pointer hover:shadow-lg">
-                <div class="card-body ">
-                    <h2 class="card-title">{{ $job->title }}</h2>
-                    <span>{{ $job->employer }} | {{ $job->formatted_posting_date }}</span>
-                    <span>{{ $job->salary }}</span>
-                    <p class="pt-5">
-                        {{ $job->description }}
-                    </p>
-                </div>
-            </a>
+            @if ($job->platform == 'online_jobs_ph')
+                <a href="https://www.onlinejobs.ph{{ $job->posting_link }}" target=”_blank”
+                    class="card  bg-neutral text-neutral-content mt-5 cursor-pointer hover:shadow-lg">
+                    <div class="card-body ">
+                        <h2 class="card-title">{{ $job->title }}</h2>
+                        <span>{{ $job->employer }} | {{ $job->formatted_posting_date }}</span>
+                        <span>{{ $job->salary }}</span>
+                        <p class="pt-5">
+                            {{ $job->description }}
+                        </p>
+                    </div>
+                </a>
+            @endif
+            @if ($job->platform == 'indeed')
+                <a href="https://ph.indeed.com{{ $job->posting_link }}" target=”_blank”
+                    class="card  bg-neutral text-neutral-content mt-5 cursor-pointer hover:shadow-lg">
+                    <div class="card-body ">
+                        <h2 class="card-title">{{ $job->title }}</h2>
+                        <span>{{ $job->employer }} | {{ $job->formatted_posting_date }} | {{ $job->location }}</span>
+                        <span>
+                            @foreach ($job->tags as $i => $tag)
+                                {{ $i != 0 ? '|' : '' }} {{ $tag->tag }}
+                            @endforeach
+                        </span>
+                        <ul class="list-disc ml-5">
+                            @foreach ($job->descriptions as $description)
+                                <li>{{ $description->description }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </a>
+            @endif
         @endforeach
     </div>
 </body>

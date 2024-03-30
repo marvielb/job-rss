@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('indeed_job_listings', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->id();
+            $table->text('indeed_id')->unique();
             $table->text('title');
             $table->string('employer');
             $table->string('location');
@@ -22,7 +23,7 @@ return new class extends Migration
 
         Schema::create('indeed_job_listings_tags', function (Blueprint $table) {
             $table->id();
-            $table->string('indeed_job_listing_id');
+            $table->bigInteger('indeed_job_listing_id');
             $table->string('tag');
             $table->timestamps();
 
@@ -31,7 +32,7 @@ return new class extends Migration
 
         Schema::create('indeed_job_listings_descriptions', function (Blueprint $table) {
             $table->id();
-            $table->string('indeed_job_listing_id');
+            $table->bigInteger('indeed_job_listing_id');
             $table->string('description');
             $table->timestamps();
 

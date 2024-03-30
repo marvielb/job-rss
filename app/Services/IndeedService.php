@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\IndeedJobListing;
 use App\Models\IndeedJobListingDescription;
-use App\Models\IndeedJobListingTags;
+use App\Models\IndeedJobListingTag;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
@@ -67,14 +67,14 @@ class IndeedService
             $companyName = $companyInfoCrawler->filter('span')->text();
             $companyLocation = $companyInfoCrawler->filter('div div')->text();
             $job = IndeedJobListing::updateOrCreate([
-                'id' => $id,
+                'indeed_id' => $id,
                 'title' => $title,
                 'employer' => $companyName,
                 'location' => $companyLocation,
                 'posting_link' => $postingLink,
             ]);
             $jobCrawler->filter('div.jobMetaDataGroup div.metadataContainer div')->each(function (Crawler $metaCrawler) use ($job) {
-                IndeedJobListingTags::updateOrCreate(['indeed_job_listing_id' => $job->id, 'tag' => $metaCrawler->text()]);
+                IndeedJobListingTag::updateOrCreate(['indeed_job_listing_id' => $job->id, 'tag' => $metaCrawler->text()]);
             });
 
             $jobCrawler->filter('tr.underShelfFooter div.heading6.tapItem-gutter ul li')->each(function (Crawler $desCrawler) use ($job) {
@@ -89,6 +89,6 @@ class IndeedService
      */
     public function getJobs(): Collection
     {
-        return IndeedJobListing::all();
+        return IndeedJobListing::with(['tags', 'descriptions'])->get();
     }
 }
