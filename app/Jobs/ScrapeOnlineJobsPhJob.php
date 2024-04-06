@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\OnlineJobsPhJobListing;
 use App\Services\OnlineJobsPhService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -25,6 +26,20 @@ class ScrapeOnlineJobsPhJob implements ShouldQueue
      */
     public function handle(OnlineJobsPhService $service): void
     {
-        $service->scrapeContents('laravel');
+        $html = $service->scrapeJobListings('laravel');
+        $jobs = $service->parseJobListings($html);
+        $jobs->each(function (OnlineJobsPhJobListing $job) {
+            $exists = OnlineJobsPhJobListing::whereId($job->id)->exists();
+
+            if ($exists) {
+                return;
+            }
+
+            if (! $job->save()) {
+                return;
+            }
+
+            ScrapeOnlineJobsPhDescriptionJob::dispatch($job);
+        });
     }
 }
