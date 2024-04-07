@@ -20,6 +20,7 @@ class OnlineJobsPhJobListing extends Model
         'employer',
         'salary',
         'description',
+        'short_description',
         'posting_link',
         'id',
     ];

@@ -22,6 +22,7 @@ class OnlineJobsPhJobListingFactory extends Factory
             'employer' => fake()->company(),
             'salary' => fake()->numberBetween(),
             'description' => fake()->paragraph(),
+            'short_description' => fake()->paragraph(),
             'posting_link' => fake()->text(),
         ];
     }

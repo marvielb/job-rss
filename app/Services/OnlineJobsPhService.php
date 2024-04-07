@@ -43,7 +43,7 @@ class OnlineJobsPhService
                 $postedDate = $postDetailCrawler->attr('data-temp');
                 $employer = trim(explode('•', $postDetailCrawler->text())[0]);
                 $salary = $jobCrawler->filter('dd.col')->text();
-                $description = $jobCrawler->filter('div.desc')->first()->text();
+                $shortDescription = $jobCrawler->filter('div.desc')->first()->text();
                 $link = $jobCrawler
                     ->filter('div.desc a')
                     ->first()
@@ -55,7 +55,7 @@ class OnlineJobsPhService
                     'posting_date' => $postedDate,
                     'employer' => $employer,
                     'salary' => $salary,
-                    'description' => $description,
+                    'short_description' => $shortDescription,
                     'posting_link' => $link,
                     'id' => $id,
                 ]));
@@ -81,7 +81,7 @@ class OnlineJobsPhService
             ->filter('#job-description')
             ->first()
             ->each(function (Crawler $descriptionCrawler) {
-                $description = $descriptionCrawler->text();
+                $description = $descriptionCrawler->html();
                 $id = $descriptionCrawler->attr('data-jobid');
                 $job = OnlineJobsPhJobListing::whereId($id)->first();
                 if (! $job) {

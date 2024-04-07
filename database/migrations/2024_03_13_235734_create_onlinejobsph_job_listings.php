@@ -17,7 +17,8 @@ return new class extends Migration
             $table->dateTime('posting_date');
             $table->string('employer');
             $table->string('salary');
-            $table->text('description');
+            $table->text('description')->nullable();
+            $table->text('short_description');
             $table->string('posting_link');
             $table->timestamps();
         });

@@ -20,7 +20,7 @@
                         <span>{{ $job->employer }} | {{ $job->formatted_posting_date }}</span>
                         <span>{{ $job->salary }}</span>
                         <p class="pt-5">
-                            {{ $job->description }}
+                            {{ $job->short_description }}
                         </p>
                     </div>
                 </a>
