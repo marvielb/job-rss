@@ -13,6 +13,10 @@ class ScrapeIndeedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $tries = 3;
+
+    public $retryAfter = 60;
+
     /**
      * Create a new job instance.
      */
