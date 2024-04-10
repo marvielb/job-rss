@@ -34,12 +34,12 @@ class IndeedService
             ->submit(); // submit the whole form
 
         // Find element of 'History' item in menu by its css selector
-        $historyButton = $driver->findElement(
+        $searchButton = $driver->findElement(
             WebDriverBy::cssSelector('button.yosegi-InlineWhatWhere-primaryButton')
         );
 
         // Click the element to navigate to revision history page
-        $historyButton->click();
+        $searchButton->click();
 
         $wait = new WebDriverWait($driver, 30);
         $wait->until(
