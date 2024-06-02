@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\OnlineJobPhListingResource;
+use App\Models\OnlineJobsPhJobListing;
 use App\Services\OnlineJobsPhService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -28,5 +30,17 @@ class OnlineJobPhJobsController extends Controller
             : $this->service->getJobs();
 
         return OnlineJobPhListingResource::collection($jobs);
+    }
+
+    public function rate(Request $request, OnlineJobsPhJobListing $job): JsonResponse
+    {
+        $validated = $request->validate([
+            'rating' => 'required|integer|min:0|max:100', // 1 to 5 stars rating
+        ]);
+        dd($validated);
+
+        $this->service->rateJob($job, $validated['rating']);
+
+        return response()->json(['message' => 'Job rated successfully.'], 200);
     }
 }

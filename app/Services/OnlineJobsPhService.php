@@ -107,4 +107,11 @@ class OnlineJobsPhService
         return OnlineJobsPhJobListing::unrated()
             ->get();
     }
+
+    public function rateJob(OnlineJobsPhJobListing $job, int $rating): void
+    {
+        $job->rating = $rating;
+        $job->rated_at = now();
+        $job->save();
+    }
 }
