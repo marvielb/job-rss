@@ -14,4 +14,5 @@ Route::controller(OnlineJobPhJobsController::class)
     ->prefix('/online-job-ph/jobs')
     ->group(function () {
         Route::get('/', 'index');
+        Route::post('/{job}/rate', 'rate');
     });
