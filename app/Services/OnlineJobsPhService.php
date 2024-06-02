@@ -101,4 +101,10 @@ class OnlineJobsPhService
     {
         return OnlineJobsPhJobListing::all();
     }
+
+    public function getUnratedJobs(): Collection
+    {
+        return OnlineJobsPhJobListing::unrated()
+            ->get();
+    }
 }

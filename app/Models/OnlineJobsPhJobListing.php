@@ -23,7 +23,13 @@ class OnlineJobsPhJobListing extends Model
         'short_description',
         'posting_link',
         'id',
+        'rating',
     ];
 
     protected $casts = ['posting_date' => 'datetime'];
+
+    public function scopeUnrated(): void
+    {
+        $this->whereNull('rating');
+    }
 }

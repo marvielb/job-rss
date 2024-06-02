@@ -20,6 +20,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('short_description');
             $table->string('posting_link');
+            $table->integer('rating')->nullable();
+            $table->dateTime('rated_at')->nullable();
             $table->timestamps();
         });
     }
