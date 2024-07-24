@@ -16,7 +16,10 @@
                 <a href="https://www.onlinejobs.ph{{ $job->posting_link }}" target=”_blank”
                     class="card  bg-neutral text-neutral-content mt-5 cursor-pointer hover:shadow-lg">
                     <div class="card-body ">
-                        <h2 class="card-title">{{ $job->title }}</h2>
+                        <div class="flex justify-between">
+                            <h2 class="card-title flex-grow">{{ $job->title }}</h2>
+                            <span>{{ $job->rating }}%</span>
+                        </div>
                         <span>{{ $job->employer }} | {{ $job->formatted_posting_date }}</span>
                         <span>{{ $job->salary }}</span>
                         <p class="pt-5">

@@ -11,9 +11,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class OnlineJobPhJobsController extends Controller
 {
-    public function __construct(protected OnlineJobsPhService $service)
-    {
-    }
+    public function __construct(protected OnlineJobsPhService $service) {}
 
     public function index(Request $request): AnonymousResourceCollection
     {
@@ -37,7 +35,6 @@ class OnlineJobPhJobsController extends Controller
         $validated = $request->validate([
             'rating' => 'required|integer|min:0|max:100', // 1 to 5 stars rating
         ]);
-        dd($validated);
 
         $this->service->rateJob($job, $validated['rating']);
 

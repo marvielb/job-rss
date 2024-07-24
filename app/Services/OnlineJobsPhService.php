@@ -9,9 +9,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class OnlineJobsPhService
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function scrapeJobListings(string $jobKeyword): string
     {
@@ -99,7 +97,7 @@ class OnlineJobsPhService
      */
     public function getJobs(): Collection
     {
-        return OnlineJobsPhJobListing::all();
+        return OnlineJobsPhJobListing::ratingDesc()->get();
     }
 
     public function getUnratedJobs(): Collection

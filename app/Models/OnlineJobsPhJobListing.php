@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,8 +29,13 @@ class OnlineJobsPhJobListing extends Model
 
     protected $casts = ['posting_date' => 'datetime'];
 
-    public function scopeUnrated(): void
+    public function scopeUnrated(Builder $query): void
     {
-        $this->whereNull('rating');
+        $query->whereNull('rating');
+    }
+
+    public function scopeRatingDesc(Builder $query): void
+    {
+        $query->orderByDesc('rating');
     }
 }
