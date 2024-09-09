@@ -8,6 +8,9 @@ require 'recipe/laravel.php';
 
 set('repository', 'https://github.com/marvielb/job-rss.git');
 set('branch', 'flake');
+set('bin/composer', '/etc/profiles/per-user/{{remote_user}}/bin/composer');
+set('bin/php', '/etc/profiles/per-user/{{remote_user}}/bin/php');
+set('keep_releases', 1);
 
 add('shared_files', []);
 add('shared_dirs', []);
@@ -20,21 +23,15 @@ host('jobs.marvielb.com')
     ->set('port', 1022)
     ->set('deploy_path', '~/');
 
+// Tasks
 task('bun:build', function () {
-    run('cd {{release_path}} && bun install --omit=dev');
-    run('cd {{release_path}} && bun run build');
-})->desc('Compile npm files locally');
+    runLocally('nix develop --command bash -c "bun install --omit=dev"');
+    runLocally('nix develop --command bash -c "bun run build"');
+    upload('./public/build/', '{{release_path}}/public/build');
+})->desc('Build bun files locally');
 
 // Hooks
-after('deploy:update_code', function () {
-    $file_contents = file_get_contents('./.env.prod', FILE_TEXT);
-    run('touch ./shared/.env');
-    run("echo '{$file_contents}' > ./shared/.env");
-});
 
-after('deploy:vendors', function () {
-    run('cd release && composer install');
-});
 after('deploy:vendors', 'bun:build');
 
 after('deploy:failed', 'deploy:unlock');
