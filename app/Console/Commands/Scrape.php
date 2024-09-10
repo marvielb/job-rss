@@ -28,6 +28,7 @@ class Scrape extends Command
     public function handle(): void
     {
         ScrapeOnlineJobsPhJob::dispatch();
-        ScrapeIndeedJob::dispatch();
+        // Temporarily disabled indeed, as it's too resource intensive
+        // ScrapeIndeedJob::dispatch();
     }
 }

@@ -30,6 +30,8 @@ task('bun:build', function () {
     upload('./public/build/', '{{release_path}}/public/build');
 })->desc('Build bun files locally');
 
+task('artisan:app:scrape', artisan('app:scrape', ['showOutput']));
+
 // Hooks
 
 after('deploy:vendors', 'bun:build');
