@@ -36,5 +36,6 @@ task('artisan:passport:keys', artisan('passport:keys', ['showOutput']));
 // Hooks
 
 after('deploy:vendors', 'bun:build');
+after('bun:build', 'artisan:passport:keys');
 
 after('deploy:failed', 'deploy:unlock');
