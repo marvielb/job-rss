@@ -12,7 +12,7 @@
 <body class="flex w-full justify-center">
     <div class="max-w-screen-md p-5">
         @foreach ($jobs as $job)
-            @if ($job->platform == 'online_jobs_ph')
+            @if ($job->platform == 'online_jobs_ph' && $job->rating)
                 <a href="https://www.onlinejobs.ph{{ $job->posting_link }}" target=”_blank”
                     class="card  bg-neutral text-neutral-content mt-5 cursor-pointer hover:shadow-lg">
                     <div class="card-body ">
