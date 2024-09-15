@@ -31,6 +31,7 @@ task('bun:build', function () {
 })->desc('Build bun files locally and deploy');
 
 task('artisan:app:scrape', artisan('app:scrape', ['showOutput']));
+task('artisan:passport:keys', artisan('passport:keys', ['showOutput']));
 
 // Hooks
 
