@@ -11,6 +11,7 @@ Route::controller(CheckHealthController::class)
     });
 
 Route::controller(OnlineJobPhJobsController::class)
+    ->middleware('client')
     ->prefix('/online-job-ph/jobs')
     ->group(function () {
         Route::get('/', 'index');
