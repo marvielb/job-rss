@@ -12,7 +12,7 @@ set('bin/composer', '/etc/profiles/per-user/{{remote_user}}/bin/composer');
 set('bin/php', '/etc/profiles/per-user/{{remote_user}}/bin/php');
 set('keep_releases', 1);
 
-add('shared_files', []);
+add('shared_files', ['database/database.sqlite', '.env']);
 add('shared_dirs', []);
 add('writable_dirs', []);
 
@@ -31,11 +31,9 @@ task('bun:build', function () {
 })->desc('Build bun files locally and deploy');
 
 task('artisan:app:scrape', artisan('app:scrape', ['showOutput']));
-task('artisan:passport:keys', artisan('passport:keys', ['showOutput']));
 
 // Hooks
 
 after('deploy:vendors', 'bun:build');
-after('bun:build', 'artisan:passport:keys');
 
 after('deploy:failed', 'deploy:unlock');
