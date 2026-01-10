@@ -18,7 +18,7 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('aws.box') //set in the etc hosts file
+host('nixlxc.box') //set in the etc hosts file
     ->set('remote_user', 'jobs')
     ->set('port', 1022)
     ->set('deploy_path', '~/');
